@@ -4,6 +4,22 @@
 	box-sizing: border-box;
 }
 
-h1 {
-	color: red;
+main {
+	display: grid;
+}
+
+.board {
+	--size: 10;
+
+	width: 500px;
+	aspect-ratio: 1;
+
+	display: grid;
+	grid-template-columns: repeat(var(--size), 1fr);
+	grid-template-rows: repeat(var(--size), 1fr);
+	gap: 1px;
+
+	> div {
+		border: 1px solid black;
+	}
 }
