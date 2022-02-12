@@ -13,8 +13,8 @@ const handler: NextApiHandler = async (req, res) => {
 		const alive = Math.random() > 0.5
 		if (!alive) return { index, alive: false }
 		const playerIndex = Math.floor(Math.random() * game.players.length)
-		const userId = game.players[playerIndex].userId
-		return { index, alive: true, userId }
+		const player = game.players[playerIndex]
+		return { index, alive: true, playerUserId: player.userId, playerGameId: player.gameId }
 	})
 
 	const gameState = await prisma.gameState.create({

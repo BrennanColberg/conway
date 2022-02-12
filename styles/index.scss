@@ -13,9 +13,11 @@
 	display: grid;
 	grid-template-columns: repeat(var(--size), 1fr);
 	grid-template-rows: repeat(var(--size), 1fr);
-	gap: 1px;
 
 	> div {
-		border: 1px solid black;
+		background-color: #eee;
+		&.alive {
+			background-color: var(--color);
+		}
 	}
 }
