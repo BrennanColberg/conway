@@ -20,8 +20,6 @@ export default function IndexPage(): JSX.Element {
 			</div>
 
 			<Board size={20} />
-
-			<div></div>
 		</main>
 	)
 }
