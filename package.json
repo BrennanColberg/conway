@@ -3,7 +3,8 @@
 		"dev": "next",
 		"start": "next start",
 		"build": "next build",
-		"format": "prettier --ignore-path .gitignore --write ."
+		"format": "prettier --ignore-path .gitignore --write .",
+		"db": "prisma studio"
 	},
 	"dependencies": {
 		"@prisma/client": "3.9.2",
