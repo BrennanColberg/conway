@@ -1,3 +1,3 @@
 export default function IndexPage(): JSX.Element {
-	return <>hello world</>;
+	return <>hello world</>
 }
