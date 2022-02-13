@@ -6,9 +6,10 @@ import prisma from "../prisma/client"
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const gameId = context.query.gameId as string
 	const userId = context.query.userId as string
+	const turn = context.query.turn as string
 	const [gameState, player] = await Promise.all([
 		prisma.gameState.findFirst({
-			where: { gameId },
+			where: !turn ? { gameId } : { gameId, turn: parseInt(turn) },
 			orderBy: { turn: "desc" },
 			include: {
 				game: true,
