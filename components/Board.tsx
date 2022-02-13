@@ -1,21 +1,15 @@
-import { CellState, Player } from "@prisma/client"
 import classNames from "classnames"
 import { CSSProperties } from "react"
 
-export default function Board({
-	size,
-	cellStates,
-}: {
-	size: number
-	cellStates: (CellState & { player?: Pick<Player, "color"> })[]
-}): JSX.Element {
+export default function Board({ size, cells }: { size: number; cells: number[] }): JSX.Element {
+	const colors = process.env.PLAYER_COLORS ? JSON.parse(process.env.PLAYER_COLORS) : []
 	return (
 		<div className="board" style={{ "--size": size } as CSSProperties}>
-			{cellStates.map((cellState) => (
+			{cells.map((cell, i) => (
 				<div
-					key={cellState.index}
-					className={classNames({ alive: cellState.alive })}
-					style={{ "--color": cellState.player?.color } as CSSProperties}
+					key={i}
+					className={classNames({ alive: cell !== -1 })}
+					style={{ "--color": colors[cell] } as CSSProperties}
 				/>
 			))}
 		</div>

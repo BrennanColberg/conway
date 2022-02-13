@@ -1,29 +1,18 @@
-import { CellState, Game, GameState, Player, PlayerState } from "@prisma/client"
+import { Game, GameState } from "@prisma/client"
 import { GetServerSideProps } from "next"
 import Board from "../components/Board"
 import prisma from "../prisma/client"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const gameId = context.query.gameId as string
-	const userId = context.query.userId as string
+	const player = context.query.userId as string
 	const turn = context.query.turn as string
-	const [gameState, player] = await Promise.all([
+	const [gameState] = await Promise.all([
 		prisma.gameState.findFirst({
 			where: !turn ? { gameId } : { gameId, turn: parseInt(turn) },
 			orderBy: { turn: "desc" },
-			include: {
-				game: true,
-				cellStates: {
-					orderBy: { index: "desc" },
-					include: { player: { select: { color: true } } },
-				},
-			},
+			include: { game: true },
 		}),
-		userId &&
-			prisma.player.findUnique({
-				where: { gameId_userId: { gameId, userId } },
-				include: { playerStates: { orderBy: { gameStateTurn: "desc" } } },
-			}),
 	])
 	return {
 		props: {
@@ -36,12 +25,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function IndexPage({
 	gameState,
-	player,
 	game,
+	player,
 }: {
-	gameState: GameState & { cellStates: (CellState & { player?: Pick<Player, "color"> })[] }
-	player?: Player & { playerStates: PlayerState[] }
+	gameState: GameState
 	game: Game
+	player?: number
 }): JSX.Element {
 	return (
 		<main>
@@ -51,16 +40,16 @@ export default function IndexPage({
 						turn: <span id="turn">{gameState.turn + 1}</span>
 					</li>
 					<li>
-						your color: <span id="color">{player.color}</span>
+						your player: <span id="player">{player}</span>
 					</li>
 					<li>
-						remaining moves: <span id="moves">{player.playerStates[0].moves}</span>
+						remaining moves: <span id="moves">{gameState.moves[player]}</span>
 					</li>
 					<button>Submit Moves</button>
 				</div>
 			)}
 
-			<Board size={game.size} cellStates={gameState.cellStates} />
+			<Board size={game.size} cells={gameState.cells} />
 		</main>
 	)
 }
