@@ -1,19 +1,13 @@
 import { Game, GameState } from "@prisma/client"
 import { GetServerSideProps } from "next"
 import Board from "../components/Board"
-import prisma from "../prisma/client"
+import getCurrentGameState from "../lib/getCurrentGameState"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const gameId = context.query.gameId as string
 	const player = context.query.userId as string
 	const turn = context.query.turn as string
-	const [gameState] = await Promise.all([
-		prisma.gameState.findFirst({
-			where: !turn ? { gameId } : { gameId, turn: parseInt(turn) },
-			orderBy: { turn: "desc" },
-			include: { game: true },
-		}),
-	])
+	const gameState = await getCurrentGameState(gameId, turn && parseInt(turn))
 	return {
 		props: {
 			gameState,
