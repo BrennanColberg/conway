@@ -9,64 +9,29 @@ datasource db {
 }
 
 model Game {
-  id      String      @id @default(uuid()) @db.VarChar(36)
-  players Player[]
-  size    Int
-  states  GameState[]
+  id           String        @id @default(uuid()) @db.VarChar(36)
+  playerCount  Int
+  size         Int // board width & height (always square)
+  gameStates   GameState[]
+  playerStates PlayerState[]
 }
 
 model GameState {
-  createdAt    DateTime      @default(now())
-  turn         Int
-  game         Game          @relation(fields: [gameId], references: [id])
-  gameId       String        @db.VarChar(36)
-  cellStates   CellState[]
-  playerStates PlayerState[]
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId String @db.VarChar(36)
+  turn   Int
+  cells  Int[] // -1 = dead, otherwise player index; index = place
+  moves  Int[] // how many moves are left; index = player index
 
   @@id([gameId, turn])
 }
 
-model CellState {
-  index           Int
-  gameState       GameState @relation(fields: [gameStateGameId, gameStateTurn], references: [gameId, turn])
-  gameStateGameId String    @db.VarChar(36)
-  gameStateTurn   Int
-  alive           Boolean
-  player          Player?   @relation(fields: [playerGameId, playerUserId], references: [gameId, userId])
-  playerGameId    String?   @db.VarChar(36)
-  playerUserId    String?   @db.VarChar(36)
-
-  @@id([index, gameStateGameId, gameStateTurn])
-}
-
 model PlayerState {
-  player          Player    @relation(fields: [playerGameId, playerUserId], references: [gameId, userId])
-  playerGameId    String    @db.VarChar(36)
-  playerUserId    String    @db.VarChar(36)
-  gameState       GameState @relation(fields: [gameStateGameId, gameStateTurn], references: [gameId, turn])
-  gameStateGameId String    @db.VarChar(36)
-  gameStateTurn   Int
-  moves           Int
+  game        Game    @relation(fields: [gameId], references: [id])
+  gameId      String  @db.VarChar(36)
+  player      Int
+  ready       Boolean @default(false)
+  chosenMoves Int[] // indexes of board to toggle
 
-  @@id([playerUserId, gameStateGameId, gameStateTurn])
-}
-
-model Player {
-  game         Game          @relation(fields: [gameId], references: [id])
-  gameId       String        @db.VarChar(36)
-  user         User          @relation(fields: [userId], references: [id])
-  userId       String        @db.VarChar(36)
-  color        String
-  playerStates PlayerState[]
-  cellStates   CellState[]
-
-  ready         Boolean @default(false)
-  queuedToggles Int[]
-
-  @@id([gameId, userId])
-}
-
-model User {
-  id      String   @id @default(uuid()) @db.VarChar(36)
-  players Player[]
+  @@id([gameId, player])
 }
