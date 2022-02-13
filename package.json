@@ -1,5 +1,6 @@
 {
 	"scripts": {
+		"postinstall": "prisma generate",
 		"dev": "next",
 		"start": "next start",
 		"build": "next build",
