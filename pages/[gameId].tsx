@@ -1,31 +1,16 @@
-import { Game, GameState } from "@prisma/client"
-import { GetServerSideProps } from "next"
+import { useRouter } from "next/router"
 import Board from "../components/Board"
-import getCurrentGameState from "../lib/getCurrentGameState"
+import useGameState from "../hooks/useGameState"
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	const gameId = context.query.gameId as string
-	const player = context.query.userId as string
-	const turn = context.query.turn as string
-	const gameState = await getCurrentGameState(gameId, turn && parseInt(turn))
-	return {
-		props: {
-			gameState,
-			game: gameState.game,
-			player,
-		},
-	}
-}
+export default function IndexPage(): JSX.Element {
+	const router = useRouter()
+	const rawPlayer = router.query.player as string | undefined
+	const player = rawPlayer === undefined ? undefined : parseInt(rawPlayer)
+	const gameState = useGameState(router.query.gameId as string)
+	console.log({ gameState })
 
-export default function IndexPage({
-	gameState,
-	game,
-	player,
-}: {
-	gameState: GameState
-	game: Game
-	player?: number
-}): JSX.Element {
+	if (!gameState) return null
+
 	return (
 		<main>
 			{player && (
@@ -43,7 +28,7 @@ export default function IndexPage({
 				</div>
 			)}
 
-			<Board size={game.size} cells={gameState.cells} />
+			<Board size={gameState.game.size} cells={gameState.cells} />
 		</main>
 	)
 }
