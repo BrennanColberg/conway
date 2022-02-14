@@ -1,5 +1,6 @@
 import classNames from "classnames"
 import { CSSProperties } from "react"
+import PLAYER_COLORS from "../lib/config/colors"
 
 export default function Board({
 	size,
@@ -12,16 +13,13 @@ export default function Board({
 	selected: Set<number>
 	onClick: (i: number) => void
 }): JSX.Element {
-	const colors = process.env.NEXT_PUBLIC_PLAYER_COLORS
-		? JSON.parse(process.env.NEXT_PUBLIC_PLAYER_COLORS)
-		: []
 	return (
 		<div className="board" style={{ "--size": size } as CSSProperties}>
 			{cells.map((cell, i) => (
 				<div
 					key={i}
 					className={classNames({ alive: cell !== -1, selected: selected.has(i) })}
-					style={{ "--color": colors[cell] } as CSSProperties}
+					style={{ "--color": PLAYER_COLORS[cell] } as CSSProperties}
 					onClick={() => onClick(i)}
 				/>
 			))}

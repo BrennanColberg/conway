@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Board from "../components/Board"
 import useGameState from "../hooks/useGameState"
+import PLAYER_COLORS from "../lib/config/colors"
 
 export default function IndexPage(): JSX.Element {
 	const router = useRouter()
@@ -27,7 +28,13 @@ export default function IndexPage(): JSX.Element {
 						turn: <span id="turn">{gameState.turn + 1}</span>
 					</li>
 					<li>
-						your player: <span id="player">{player}</span>
+						your player:{" "}
+						<span
+							id="player"
+							style={{ color: PLAYER_COLORS[player], backgroundColor: "#eee", fontWeight: "bold" }}
+						>
+							{PLAYER_COLORS[player].toUpperCase()}
+						</span>
 					</li>
 					<li>
 						remaining moves:{" "}
