@@ -8,6 +8,8 @@ const handler: NextApiHandler = async (req, res) => {
 	if (size === undefined || size < 4) size = 8
 	let playerCount = req.body.playerCount as number | undefined
 	if (playerCount === undefined || playerCount < 2) playerCount = 2
+	let fill = req.body.fill as number | undefined
+	if (fill === undefined || fill < 0 || fill > 1) fill = 0.5
 
 	const game = await prisma.game.create({
 		data: {
@@ -25,7 +27,7 @@ const handler: NextApiHandler = async (req, res) => {
 	// generate an initial configuration of cells for the full board
 	const cells = [...Array(game.size * game.size)].map(() => {
 		// check if the cell is empty
-		if (Math.random() > 0.5) return -1
+		if (Math.random() > fill) return -1
 		// if not empty, assign to a random player
 		return Math.floor(Math.random() * playerCount)
 	})
