@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Board from "../components/Board"
@@ -31,7 +32,17 @@ export default function IndexPage(): JSX.Element {
 							{remainingMoves}/{maxMoves}
 						</span>
 					</li>
-					<button>Submit Moves</button>
+					<button
+						onClick={() => {
+							axios.post("/api/player-state", {
+								gameId: gameState.gameId,
+								player,
+								moves: Array.from(selected).sort(),
+							})
+						}}
+					>
+						Submit Moves
+					</button>
 				</div>
 			)}
 
