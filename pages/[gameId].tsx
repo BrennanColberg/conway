@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import { useState } from "react"
 import Board from "../components/Board"
 import useGameState from "../hooks/useGameState"
 
@@ -7,7 +8,7 @@ export default function IndexPage(): JSX.Element {
 	const rawPlayer = router.query.player as string | undefined
 	const player = rawPlayer === undefined ? undefined : parseInt(rawPlayer)
 	const gameState = useGameState(router.query.gameId as string)
-	console.log({ gameState })
+	const [selected, setSelected] = useState<Set<number>>(new Set())
 
 	if (!gameState) return null
 
@@ -28,7 +29,19 @@ export default function IndexPage(): JSX.Element {
 				</div>
 			)}
 
-			<Board size={gameState.game.size} cells={gameState.cells} />
+			<Board
+				size={gameState.game.size}
+				cells={gameState.cells}
+				selected={selected}
+				onClick={(i: number) => {
+					setSelected((last) => {
+						const result = new Set(last)
+						if (result.has(i)) result.delete(i)
+						else result.add(i)
+						return result
+					})
+				}}
+			/>
 		</main>
 	)
 }

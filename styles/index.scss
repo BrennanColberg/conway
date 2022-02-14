@@ -16,8 +16,13 @@
 
 	> div {
 		background-color: #eee;
+
 		&.alive {
 			background-color: var(--color);
+		}
+
+		&.selected {
+			border: calc(var(--size) * 0.15px) solid black;
 		}
 	}
 }
