@@ -27,11 +27,11 @@ model GameState {
 }
 
 model PlayerState {
-  game        Game    @relation(fields: [gameId], references: [id])
-  gameId      String  @db.VarChar(36)
-  player      Int
-  ready       Boolean @default(false)
-  chosenMoves Int[] // indexes of board to toggle
+  game   Game    @relation(fields: [gameId], references: [id])
+  gameId String  @db.VarChar(36)
+  player Int
+  ready  Boolean @default(false)
+  moves  Int[] // indexes of board to toggle
 
   @@id([gameId, player])
 }
