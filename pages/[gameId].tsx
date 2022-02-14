@@ -12,6 +12,9 @@ export default function IndexPage(): JSX.Element {
 
 	if (!gameState) return null
 
+	const maxMoves = gameState?.moves[player]
+	const remainingMoves = maxMoves - selected.size
+
 	return (
 		<main>
 			{player && (
@@ -23,7 +26,10 @@ export default function IndexPage(): JSX.Element {
 						your player: <span id="player">{player}</span>
 					</li>
 					<li>
-						remaining moves: <span id="moves">{gameState.moves[player]}</span>
+						remaining moves:{" "}
+						<span id="moves">
+							{remainingMoves}/{maxMoves}
+						</span>
 					</li>
 					<button>Submit Moves</button>
 				</div>
@@ -37,7 +43,7 @@ export default function IndexPage(): JSX.Element {
 					setSelected((last) => {
 						const result = new Set(last)
 						if (result.has(i)) result.delete(i)
-						else result.add(i)
+						else if (remainingMoves >= 1) result.add(i)
 						return result
 					})
 				}}
