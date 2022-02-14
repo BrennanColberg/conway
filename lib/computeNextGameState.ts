@@ -48,14 +48,19 @@ export default async function computeNextGameState(gameId: string): Promise<Game
 		}
 	})
 
-	const gameState = await prisma.gameState.create({
-		data: {
-			turn: last.turn + 1,
-			game: { connect: { id: last.gameId } },
-			cells,
-			moves: [...Array(last.game.playerCount)].map(() => 5),
-		},
-	})
+	const [gameState] = await Promise.all([
+		prisma.gameState.create({
+			data: {
+				turn: last.turn + 1,
+				game: { connect: { id: last.gameId } },
+				cells,
+				moves: [...Array(last.game.playerCount)].map(() => 5),
+			},
+		}),
+
+		// reset players for next turn
+		prisma.playerState.updateMany({ where: { gameId }, data: { ready: false, moves: [] } }),
+	])
 
 	return gameState
 }
