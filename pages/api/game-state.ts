@@ -64,6 +64,7 @@ const handler: NextApiHandler = async (req, res) => {
 			turn: lastState.turn + 1,
 			game: { connect: { id: lastState.gameId } },
 			cells,
+			moves: [...Array(lastState.game.playerCount)].map(() => 5),
 		},
 	})
 
