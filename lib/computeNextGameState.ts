@@ -8,10 +8,21 @@ export default async function computeNextGameState(gameId: string): Promise<Game
 		include: { game: { include: { playerStates: true } } },
 	})
 
-	// TODO do player state toggles
+	// calculate the impact of player moves
+	const oldCells = last.cells.map((cell, i) => {
+		const togglingPlayers = last.game.playerStates
+			.filter((playerState) => playerState.moves.includes(i))
+			.map((playerState) => playerState.player)
+		// if zero or more than one toggle it, do nothing
+		if (togglingPlayers.length !== 1) return cell
+		// if it's alive, toggle it to dead
+		if (cell !== -1) return -1
+		// if it's dead, make it the toggler's color
+		return togglingPlayers[0]
+	})
 
 	const size = last.game.size
-	const cells = last.cells.map((cell, i) => {
+	const cells = oldCells.map((cell, i) => {
 		const x = i % size
 		const y = Math.floor(i / size)
 		const onTop = y === 0
@@ -29,7 +40,7 @@ export default async function computeNextGameState(gameId: string): Promise<Game
 			onBottom || onRight ? undefined : i + size + 1,
 		]
 			.filter((ni) => ni !== undefined)
-			.map((ni) => last.cells[ni])
+			.map((ni) => oldCells[ni])
 		const aliveNeighbors = neighbors.filter((neighbor) => neighbor !== -1)
 
 		if (cell !== -1) {

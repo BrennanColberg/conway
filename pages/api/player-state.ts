@@ -26,7 +26,6 @@ const handler: NextApiHandler = async (req, res) => {
 		where: { gameId, ready: true },
 		_count: { ready: true },
 	})
-	console.log({ playerStates })
 	if (playerStates._count.ready === gameState.game.playerCount) {
 		await computeNextGameState(gameId)
 	}
