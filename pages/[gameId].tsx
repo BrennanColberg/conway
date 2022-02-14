@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Board from "../components/Board"
 import useGameState from "../hooks/useGameState"
 
@@ -10,6 +10,9 @@ export default function IndexPage(): JSX.Element {
 	const player = rawPlayer === undefined ? undefined : parseInt(rawPlayer)
 	const gameState = useGameState(router.query.gameId as string)
 	const [selected, setSelected] = useState<Set<number>>(new Set())
+	useEffect(() => {
+		setSelected(new Set())
+	}, [gameState])
 
 	if (!gameState) return null
 
@@ -18,7 +21,7 @@ export default function IndexPage(): JSX.Element {
 
 	return (
 		<main>
-			{player && (
+			{player !== undefined ? (
 				<div>
 					<li>
 						turn: <span id="turn">{gameState.turn + 1}</span>
@@ -33,18 +36,19 @@ export default function IndexPage(): JSX.Element {
 						</span>
 					</li>
 					<button
-						onClick={() => {
-							axios.post("/api/player-state", {
+						onClick={async () => {
+							const playerState = await axios.post("/api/player-state", {
 								gameId: gameState.gameId,
 								player,
-								moves: Array.from(selected).sort(),
+								moves: Array.from(selected).sort((a, b) => a - b),
 							})
+							console.log({ playerState })
 						}}
 					>
 						Submit Moves
 					</button>
 				</div>
-			)}
+			) : null}
 
 			<Board
 				size={gameState.game.size}

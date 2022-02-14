@@ -14,6 +14,11 @@ const handler: NextApiHandler = async (req, res) => {
 			id,
 			size,
 			playerCount,
+			playerStates: {
+				createMany: {
+					data: [...Array(playerCount)].map((_, player) => ({ moves: [], ready: false, player })),
+				},
+			},
 		},
 	})
 

@@ -22,7 +22,7 @@
 		}
 
 		&.selected {
-			border: calc(var(--size) * 0.15px) solid black;
+			border: calc(40px / var(--size)) solid black;
 		}
 	}
 }
