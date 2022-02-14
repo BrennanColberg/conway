@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next"
+import computeNextGameState from "../../lib/computeNextGameState"
 import getCurrentGameState from "../../lib/getCurrentGameState"
 import prisma from "../../prisma/client"
 
@@ -20,7 +21,15 @@ const handler: NextApiHandler = async (req, res) => {
 		data: { ready: true, moves },
 	})
 
-	// TODO evaluate if all players are ready
+	// if all players are ready, trigger the next evaluation
+	const playerStates = await prisma.playerState.aggregate({
+		where: { gameId, ready: true },
+		_count: { ready: true },
+	})
+	console.log({ playerStates })
+	if (playerStates._count.ready === gameState.game.playerCount) {
+		await computeNextGameState(gameId)
+	}
 
 	res.status(200).json(playerState)
 }
