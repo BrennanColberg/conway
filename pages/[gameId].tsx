@@ -5,7 +5,7 @@ import Board from "../components/Board"
 import useGameState from "../hooks/useGameState"
 import PLAYER_COLORS from "../lib/config/colors"
 
-export default function IndexPage(): JSX.Element {
+export default function GamePage(): JSX.Element {
 	const router = useRouter()
 	const rawPlayer = router.query.player as string | undefined
 	const player = rawPlayer === undefined ? undefined : parseInt(rawPlayer)
