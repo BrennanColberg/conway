@@ -27,3 +27,11 @@
 		}
 	}
 }
+
+form {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	max-width: 250px;
+	margin: auto;
+}
