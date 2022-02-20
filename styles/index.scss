@@ -19,6 +19,7 @@
 	> div {
 		transition: background-color 1s linear;
 		background-color: #eee;
+		border: 3px solid #eee;
 
 		&.alive {
 			background-color: var(--color);
