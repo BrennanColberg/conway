@@ -42,18 +42,6 @@ export default function GamePage(): JSX.Element {
 							{remainingMoves}/{maxMoves}
 						</span>
 					</li>
-					<button
-						onClick={async () => {
-							const playerState = await axios.post("/api/player-state", {
-								gameId: gameState.gameId,
-								player,
-								moves: Array.from(selected).sort((a, b) => a - b),
-							})
-							console.log({ playerState })
-						}}
-					>
-						Submit Moves
-					</button>
 				</div>
 			) : null}
 
@@ -70,6 +58,19 @@ export default function GamePage(): JSX.Element {
 					})
 				}}
 			/>
+
+			<button
+				onClick={async () => {
+					const playerState = await axios.post("/api/player-state", {
+						gameId: gameState.gameId,
+						player,
+						moves: Array.from(selected).sort((a, b) => a - b),
+					})
+					console.log({ playerState })
+				}}
+			>
+				Submit Moves
+			</button>
 		</main>
 	)
 }

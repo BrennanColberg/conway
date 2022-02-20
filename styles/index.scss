@@ -6,9 +6,15 @@
 
 .board {
 	--size: 10;
+	--width: 90vmin;
+	flex-grow: 0;
+	flex-shrink: 0;
 
-	width: 500px;
+	width: var(--width);
 	aspect-ratio: 1;
+	position: absolute;
+	right: calc((100vw - var(--width)) / 2);
+	top: calc((100vh - var(--width)) / 2);
 
 	display: grid;
 	grid-template-columns: repeat(var(--size), 1fr);
@@ -34,4 +40,14 @@ form {
 	align-items: center;
 	max-width: 250px;
 	margin: auto;
+}
+
+main {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-between;
+	height: 100vh;
+	width: 100vw;
+	padding: 5vmin;
 }
