@@ -13,7 +13,10 @@ export default function GamePage(): JSX.Element {
 	const [selected, setSelected] = useState<Set<number>>(new Set())
 	useEffect(() => {
 		setSelected(new Set())
+		setSubmitted(false)
 	}, [gameState])
+
+	const [submitted, setSubmitted] = useState<boolean>(false)
 
 	if (!gameState) return null
 
@@ -44,7 +47,9 @@ export default function GamePage(): JSX.Element {
 			/>
 
 			<button
+				disabled={submitted}
 				onClick={async () => {
+					setSubmitted(true)
 					const playerState = await axios.post("/api/player-state", {
 						gameId: gameState.gameId,
 						player,
@@ -53,7 +58,7 @@ export default function GamePage(): JSX.Element {
 					console.log({ playerState })
 				}}
 			>
-				Submit Your Moves
+				{submitted ? "Moves Submitted" : "Submit Your Moves"}
 			</button>
 		</main>
 	)
