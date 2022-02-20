@@ -23,25 +23,9 @@ export default function GamePage(): JSX.Element {
 	return (
 		<main style={{ "--color": PLAYER_COLORS[player] } as CSSProperties}>
 			{player !== undefined ? (
-				<div>
-					<li>
-						turn: <span id="turn">{gameState.turn + 1}</span>
-					</li>
-					<li>
-						your player:{" "}
-						<span
-							id="player"
-							style={{ color: PLAYER_COLORS[player], backgroundColor: "#eee", fontWeight: "bold" }}
-						>
-							{PLAYER_COLORS[player].toUpperCase()}
-						</span>
-					</li>
-					<li>
-						remaining moves:{" "}
-						<span id="moves">
-							{remainingMoves}/{maxMoves}
-						</span>
-					</li>
+				<div id="info">
+					<span id="player">expand: {PLAYER_COLORS[player]}</span>
+					<span id="moves">{remainingMoves} left</span>
 				</div>
 			) : null}
 

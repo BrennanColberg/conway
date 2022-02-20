@@ -6,15 +6,11 @@
 
 .board {
 	--size: 10;
-	--width: 90vmin;
 	flex-grow: 0;
 	flex-shrink: 0;
 
-	width: var(--width);
+	width: 100%;
 	aspect-ratio: 1;
-	position: absolute;
-	right: calc((100vw - var(--width)) / 2);
-	top: calc((100vh - var(--width)) / 2);
 
 	display: grid;
 	grid-template-columns: repeat(var(--size), 1fr);
@@ -48,8 +44,39 @@ main {
 	align-items: center;
 	justify-content: space-between;
 	height: 100vh;
-	width: 100vw;
 	padding: 5vmin;
+}
+
+#info {
+	width: 90vmin;
+	font-size: 5vmin;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	width: 90vmin;
+	height: 10vmin;
+	text-transform: uppercase;
+	font-family: sans-serif;
+	font-weight: bold;
+
+	span {
+		vertical-align: middle;
+		height: inherit;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 3vmin;
+	}
+
+	#player {
+		background-color: var(--color);
+		color: white;
+	}
+
+	#moves {
+		background-color: white;
+		color: var(--color);
+	}
 }
 
 button {
@@ -66,7 +93,9 @@ button {
 	position: relative;
 	top: 0;
 	left: 0;
-	transition: all linear 0.1s;
+	transition-property: top, left, box-shadow;
+	transition-timing-function: linear;
+	transition-duration: 0.1s;
 
 	&:active {
 		top: 5px;
