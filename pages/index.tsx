@@ -16,7 +16,7 @@ export default function IndexPage(): JSX.Element {
 				console.log({ response })
 				const gameId = response.data.game.id
 				console.log({ gameId })
-				await router.push(`/${gameId}?player=0`)
+				await router.push(`/${gameId}/play?player=0`)
 			}}
 		>
 			<div>
