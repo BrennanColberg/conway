@@ -16,6 +16,8 @@
 	grid-template-columns: repeat(var(--size), 1fr);
 	grid-template-rows: repeat(var(--size), 1fr);
 
+	border: 3px solid #eee;
+
 	> div {
 		transition: background-color 1s linear;
 		background-color: #eee;
