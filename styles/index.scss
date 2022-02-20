@@ -51,3 +51,26 @@ main {
 	width: 100vw;
 	padding: 5vmin;
 }
+
+button {
+	width: 90vmin;
+	height: 10vmin;
+	background-color: var(--color);
+	color: white;
+	font-size: 5vmin;
+	font-weight: bold;
+	text-transform: uppercase;
+	border: none;
+	box-shadow: 5px 5px #bbb;
+
+	position: relative;
+	top: 0;
+	left: 0;
+	transition: all linear 0.1s;
+
+	&:active {
+		top: 5px;
+		left: 5px;
+		box-shadow: none;
+	}
+}

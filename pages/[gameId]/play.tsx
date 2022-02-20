@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { CSSProperties, useEffect, useState } from "react"
 import Board from "../../components/Board"
 import useGameState from "../../hooks/useGameState"
 import PLAYER_COLORS from "../../lib/config/colors"
@@ -21,7 +21,7 @@ export default function GamePage(): JSX.Element {
 	const remainingMoves = maxMoves - selected.size
 
 	return (
-		<main>
+		<main style={{ "--color": PLAYER_COLORS[player] } as CSSProperties}>
 			{player !== undefined ? (
 				<div>
 					<li>
@@ -69,7 +69,7 @@ export default function GamePage(): JSX.Element {
 					console.log({ playerState })
 				}}
 			>
-				Submit Moves
+				Submit Your Moves
 			</button>
 		</main>
 	)
