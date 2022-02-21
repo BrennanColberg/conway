@@ -39,6 +39,7 @@ export default function GamePage(): JSX.Element {
 				cells={gameState.cells}
 				selected={selected}
 				onClick={(i: number) => {
+					if (submitted) return
 					setSelected((last) => {
 						const result = new Set(last)
 						if (result.has(i)) result.delete(i)
