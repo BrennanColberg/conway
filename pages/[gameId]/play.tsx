@@ -4,6 +4,7 @@ import { CSSProperties, useEffect, useState } from "react"
 import Board from "../../components/Board"
 import useGameState from "../../hooks/useGameState"
 import PLAYER_COLORS from "../../lib/config/colors"
+import classNames from "classnames"
 
 export default function GamePage(): JSX.Element {
 	const router = useRouter()
@@ -24,7 +25,10 @@ export default function GamePage(): JSX.Element {
 	const remainingMoves = maxMoves - selected.size
 
 	return (
-		<main style={{ "--color": PLAYER_COLORS[player] } as CSSProperties}>
+		<main
+			className={classNames({ submitted })}
+			style={{ "--color": PLAYER_COLORS[player] } as CSSProperties}
+		>
 			{player !== undefined ? (
 				<div id="info">
 					<span id="player">you are {PLAYER_COLORS[player]}</span>
