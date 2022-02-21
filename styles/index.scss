@@ -129,6 +129,10 @@ button {
 	transition-timing-function: linear;
 	transition-property: top, left, box-shadow;
 
+	&::before {
+		content: "Submit Your Moves";
+	}
+
 	&:active {
 		top: 5px;
 		left: 5px;
@@ -140,5 +144,8 @@ button {
 		left: 5px;
 		box-shadow: none;
 		background-color: #555;
+		&::before {
+			content: "Waiting for other players";
+		}
 	}
 }

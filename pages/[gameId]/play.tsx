@@ -27,8 +27,10 @@ export default function GamePage(): JSX.Element {
 		<main style={{ "--color": PLAYER_COLORS[player] } as CSSProperties}>
 			{player !== undefined ? (
 				<div id="info">
-					<span id="player">expand: {PLAYER_COLORS[player]}</span>
-					<span id="moves">{remainingMoves} left</span>
+					<span id="player">you are {PLAYER_COLORS[player]}</span>
+					<span id="moves">
+						{remainingMoves} / {maxMoves}
+					</span>
 				</div>
 			) : null}
 
@@ -57,9 +59,7 @@ export default function GamePage(): JSX.Element {
 					})
 					console.log({ playerState })
 				}}
-			>
-				{submitted ? "Moves Submitted" : "Submit Your Moves"}
-			</button>
+			/>
 		</main>
 	)
 }
