@@ -1,7 +1,13 @@
-* {
+*,
+*::before,
+*::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+:root {
+	--selected-proportion: 65%;
 }
 
 .board {
@@ -15,20 +21,33 @@
 	display: grid;
 	grid-template-columns: repeat(var(--size), 1fr);
 	grid-template-rows: repeat(var(--size), 1fr);
-
-	border: 3px solid #eee;
+	gap: 2%;
+	background-color: #eee;
+	padding: 2%;
 
 	> div {
 		transition: background-color 1s linear;
 		background-color: #eee;
-		border: 3px solid #eee;
+		position: relative;
 
 		&.alive {
 			background-color: var(--color);
 		}
 
 		&.selected {
-			border: calc(40px / var(--size)) solid black;
+			&::before {
+				content: "";
+				position: absolute;
+				top: calc(50% - var(--selected-proportion) / 2);
+				left: calc(50% - var(--selected-proportion) / 2);
+				width: var(--selected-proportion);
+				height: var(--selected-proportion);
+				background: var(--color);
+			}
+
+			&.alive::before {
+				background: #eee;
+			}
 		}
 	}
 }
