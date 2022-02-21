@@ -11,6 +11,7 @@ datasource db {
 model Game {
   id           String        @id @default(uuid()) @db.VarChar(36)
   playerCount  Int
+  movesPerTurn Int
   size         Int // board width & height (always square)
   gameStates   GameState[]
   playerStates PlayerState[]

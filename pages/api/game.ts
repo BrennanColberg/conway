@@ -10,12 +10,15 @@ const handler: NextApiHandler = async (req, res) => {
 	if (playerCount === undefined || playerCount < 2) playerCount = 2
 	let fill = req.body.fill as number | undefined
 	if (fill === undefined || fill < 0 || fill > 1) fill = 0.5
+	let movesPerTurn = req.body.movesPerTurn as number | undefined
+	if (movesPerTurn === undefined || movesPerTurn < 1) movesPerTurn = 5
 
 	const game = await prisma.game.create({
 		data: {
 			id,
 			size,
 			playerCount,
+			movesPerTurn,
 			playerStates: {
 				createMany: {
 					data: [...Array(playerCount)].map((_, player) => ({ moves: [], ready: false, player })),
@@ -37,7 +40,7 @@ const handler: NextApiHandler = async (req, res) => {
 			game: { connect: { id: game.id } },
 			turn: 0,
 			cells,
-			moves: [...Array(game.playerCount)].map(() => 5),
+			moves: [...Array(game.playerCount)].map(() => movesPerTurn),
 		},
 	})
 

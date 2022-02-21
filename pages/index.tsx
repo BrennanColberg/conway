@@ -7,12 +7,13 @@ export default function IndexPage(): JSX.Element {
 	const [playerCount, setPlayerCount] = useState<number>(2)
 	const [fill, setFill] = useState<number>(0.5)
 	const [size, setSize] = useState<number>(10)
+	const [movesPerTurn, setMovesPerTurn] = useState<number>(5)
 
 	return (
 		<form
 			onSubmit={async (e) => {
 				e.preventDefault()
-				const response = await axios.post("/api/game", { playerCount, fill, size })
+				const response = await axios.post("/api/game", { playerCount, fill, size, movesPerTurn })
 				console.log({ response })
 				const gameId = response.data.game.id
 				console.log({ gameId })
@@ -56,6 +57,19 @@ export default function IndexPage(): JSX.Element {
 					step={0.1}
 					value={fill}
 					onChange={(e) => setFill(e.target.valueAsNumber)}
+					required
+				/>
+			</div>
+
+			<div>
+				<label htmlFor="movesPerTurn">Moves / turn</label>
+				<input
+					type="number"
+					name="movesPerTurn"
+					min={1}
+					step={1}
+					value={movesPerTurn}
+					onChange={(e) => setMovesPerTurn(e.target.valueAsNumber)}
 					required
 				/>
 			</div>

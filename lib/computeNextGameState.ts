@@ -65,7 +65,7 @@ export default async function computeNextGameState(gameId: string): Promise<Game
 				turn: last.turn + 1,
 				game: { connect: { id: last.gameId } },
 				cells,
-				moves: [...Array(last.game.playerCount)].map(() => 5),
+				moves: [...Array(last.game.playerCount)].map(() => gameState.game.movesPerTurn),
 			},
 		}),
 
