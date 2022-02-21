@@ -12,6 +12,8 @@
 
 .board {
 	--size: 10;
+
+	--gap: calc(0.15 * var(--main-width) / var(--size));
 	flex-grow: 0;
 	flex-shrink: 0;
 
@@ -21,9 +23,9 @@
 	display: grid;
 	grid-template-columns: repeat(var(--size), 1fr);
 	grid-template-rows: repeat(var(--size), 1fr);
-	gap: 2%;
+	gap: var(--gap);
+	padding: var(--gap);
 	background-color: #eee;
-	padding: 2%;
 
 	> div {
 		transition: background-color 1s linear;
