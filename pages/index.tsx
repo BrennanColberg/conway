@@ -20,41 +20,47 @@ export default function IndexPage(): JSX.Element {
 			}}
 		>
 			<div>
-				<label htmlFor="players">Players: {playerCount} </label>
+				<label htmlFor="players">Players</label>
 				<input
-					type="range"
+					name="players"
+					type="number"
 					min={2}
 					max={10}
 					step={1}
 					value={playerCount}
 					onChange={(e) => setPlayerCount(e.target.valueAsNumber)}
+					required
 				/>
 			</div>
 
 			<div>
-				<label htmlFor="size">Size:</label>
+				<label htmlFor="size">Size</label>
 				<input
 					type="number"
 					min={4}
+					max={99}
 					step={1}
 					value={size}
 					onChange={(e) => setSize(e.target.valueAsNumber)}
+					required
 				/>
 			</div>
 
 			<div>
-				<label htmlFor="size">Initial Fill: {fill} </label>
+				<label htmlFor="size">Initial Fill</label>
 				<input
-					type="range"
+					type="number"
+					name="fill"
 					min={0}
 					max={1}
-					step={0.01}
+					step={0.1}
 					value={fill}
 					onChange={(e) => setFill(e.target.valueAsNumber)}
+					required
 				/>
 			</div>
 
-			<button>Create New Game</button>
+			<button>Create Game</button>
 		</form>
 	)
 }

@@ -59,7 +59,9 @@ export default function GamePage(): JSX.Element {
 					})
 					console.log({ playerState })
 				}}
-			/>
+			>
+				{submitted ? "Waiting for other players" : "Submit your moves"}
+			</button>
 		</main>
 	)
 }

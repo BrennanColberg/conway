@@ -4,6 +4,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: sans-serif;
 }
 
 :root {
@@ -53,14 +54,6 @@
 			}
 		}
 	}
-}
-
-form {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	max-width: 250px;
-	margin: auto;
 }
 
 #__next {
@@ -135,10 +128,6 @@ button {
 	transition-timing-function: linear;
 	transition-property: top, left, box-shadow;
 
-	&::before {
-		content: "Submit Your Moves";
-	}
-
 	&:active {
 		top: 5px;
 		left: 5px;
@@ -151,8 +140,42 @@ button {
 		left: 5px;
 		box-shadow: none;
 		background-color: #555;
-		&::before {
-			content: "Waiting for other players";
-		}
+	}
+}
+
+form {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	width: 10em;
+	padding: 0.1em;
+	font-size: 25pt;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+
+	> * {
+		width: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		margin: 0.2em 0;
+	}
+
+	input {
+		width: 2em;
+		font-size: inherit;
+		font-family: inherit;
+		font-weight: inherit;
+		border: none;
+		outline: none;
+		text-align: right;
+	}
+
+	button {
+		background: black;
+		width: auto;
+		padding: 0.25em 0.5em;
+		margin-top: 0.5em;
 	}
 }
