@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { CSSProperties, useState } from "react"
 
 export default function IndexPage(): JSX.Element {
 	const router = useRouter()
@@ -8,11 +8,13 @@ export default function IndexPage(): JSX.Element {
 	const [fill, setFill] = useState<number>(0.5)
 	const [size, setSize] = useState<number>(10)
 	const [movesPerTurn, setMovesPerTurn] = useState<number>(5)
+	const [submitted, setSubmitted] = useState<boolean>(false)
 
 	return (
 		<form
 			onSubmit={async (e) => {
 				e.preventDefault()
+				setSubmitted(true)
 				const response = await axios.post("/api/game", { playerCount, fill, size, movesPerTurn })
 				console.log({ response })
 				const gameId = response.data.game.id
@@ -74,7 +76,9 @@ export default function IndexPage(): JSX.Element {
 				/>
 			</div>
 
-			<button>Create Game</button>
+			<button style={{ "--color": "black" } as CSSProperties} disabled={submitted}>
+				{!submitted ? "Create Game" : "Creating Game..."}
+			</button>
 		</form>
 	)
 }
