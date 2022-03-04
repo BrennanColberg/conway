@@ -1,11 +1,12 @@
 import axios from "axios"
 import { useRouter } from "next/router"
 import { CSSProperties, useState } from "react"
+import PLAYER_COLORS from "../lib/config/colors"
 
 export default function IndexPage(): JSX.Element {
 	const router = useRouter()
 	const [playerCount, setPlayerCount] = useState<number>(2)
-	const [fill, setFill] = useState<number>(0.5)
+	const [fill, setFill] = useState<number>(0)
 	const [size, setSize] = useState<number>(10)
 	const [movesPerTurn, setMovesPerTurn] = useState<number>(5)
 	const [submitted, setSubmitted] = useState<boolean>(false)
@@ -28,7 +29,7 @@ export default function IndexPage(): JSX.Element {
 					name="players"
 					type="number"
 					min={2}
-					max={10}
+					max={PLAYER_COLORS.length}
 					step={1}
 					value={playerCount}
 					onChange={(e) => setPlayerCount(e.target.valueAsNumber)}
