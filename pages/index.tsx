@@ -51,15 +51,15 @@ export default function IndexPage(): JSX.Element {
 			</div>
 
 			<div>
-				<label htmlFor="size">Initial Fill</label>
+				<label htmlFor="size">Initial Fill %</label>
 				<input
 					type="number"
 					name="fill"
 					min={0}
-					max={1}
-					step={0.1}
-					value={fill}
-					onChange={(e) => setFill(e.target.valueAsNumber)}
+					max={100}
+					step={10}
+					value={Math.round(fill * 100)}
+					onChange={(e) => setFill(e.target.valueAsNumber / 100)}
 					required
 				/>
 			</div>
