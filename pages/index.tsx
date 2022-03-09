@@ -41,7 +41,7 @@ export default function IndexPage(): JSX.Element {
 				<label htmlFor="size">Size</label>
 				<input
 					type="number"
-					min={4}
+					min={3}
 					max={99}
 					step={1}
 					value={size}

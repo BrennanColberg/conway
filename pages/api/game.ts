@@ -5,7 +5,7 @@ const handler: NextApiHandler = async (req, res) => {
 	if (req.method !== "POST") return res.status(405).send("wrong method")
 	const id = req.body.id as string | undefined
 	let size = req.body.size as number | undefined
-	if (size === undefined || size < 4) size = 8
+	if (size === undefined || size < 3) size = 8
 	let playerCount = req.body.playerCount as number | undefined
 	if (playerCount === undefined || playerCount < 1) playerCount = 2
 	let fill = req.body.fill as number | undefined
