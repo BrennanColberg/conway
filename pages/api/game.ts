@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
 	let size = req.body.size as number | undefined
 	if (size === undefined || size < 4) size = 8
 	let playerCount = req.body.playerCount as number | undefined
-	if (playerCount === undefined || playerCount < 2) playerCount = 2
+	if (playerCount === undefined || playerCount < 1) playerCount = 2
 	let fill = req.body.fill as number | undefined
 	if (fill === undefined || fill < 0 || fill > 1) fill = 0.5
 	let movesPerTurn = req.body.movesPerTurn as number | undefined

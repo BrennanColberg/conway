@@ -28,7 +28,7 @@ export default function IndexPage(): JSX.Element {
 				<input
 					name="players"
 					type="number"
-					min={2}
+					min={1}
 					max={PLAYER_COLORS.length}
 					step={1}
 					value={playerCount}
