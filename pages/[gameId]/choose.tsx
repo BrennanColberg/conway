@@ -1,4 +1,5 @@
 import { Game } from "@prisma/client"
+import classNames from "classnames"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
 import { CSSProperties, useState } from "react"
@@ -17,17 +18,15 @@ export default function ChoosePlayerPage({ game }: { game: Game }): JSX.Element 
 	return (
 		<div id="choose">
 			{PLAYER_COLORS.slice(0, game.playerCount).map((color, index) => (
-				<button
+				<a
+					className={classNames({ disabled: chosenColor === color })}
 					style={{ "--color": color } as CSSProperties}
-					disabled={chosenColor === color}
 					key={index}
-					onClick={() => {
-						setChosenColor(color)
-						router.push(`/${router.query.gameId as string}/play?player=${index}`)
-					}}
+					href={`/${router.query.gameId as string}/play?player=${index}`}
+					onClick={() => setChosenColor(color)}
 				>
 					Play as {color}
-				</button>
+				</a>
 			))}
 		</div>
 	)

@@ -108,7 +108,8 @@ main {
 	}
 }
 
-button {
+button,
+a {
 	cursor: pointer;
 	width: 100%;
 	padding: 0.5em;
@@ -118,6 +119,7 @@ button {
 	font-weight: bold;
 	text-align: center;
 	text-transform: uppercase;
+	text-decoration: none;
 	border: none;
 	box-shadow: 5px 5px #bbb;
 
@@ -135,7 +137,8 @@ button {
 		box-shadow: none;
 	}
 
-	&:disabled {
+	&:disabled,
+	&.disabled {
 		cursor: not-allowed;
 		top: 5px;
 		left: 5px;
@@ -191,7 +194,7 @@ form {
 	align-items: center;
 	font-size: 20pt;
 
-	button {
+	a {
 		width: 12em;
 		margin: 0.5em;
 	}
